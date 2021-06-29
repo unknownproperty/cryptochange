@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-//import '../styles/globals.css'
+import '../styles/globals.css'
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
