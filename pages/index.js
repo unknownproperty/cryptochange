@@ -198,12 +198,6 @@ export default function Home() {
   const [min, SetMin] = React.useState('')
 
 
-  // const Change = () => {
-  //   let a = indexLeftSelect
-  //   SetIndexLeftSelect(indexRightSelect)
-  //   SetIndexRightSelect(a)
-  // }
-
   const clickLeftItem = (index) => {
     SetIndexLeftSelect(index)
     SetOpenLeftSelect(false)
@@ -215,7 +209,12 @@ export default function Home() {
 
     fetch(`https://api.changenow.io/v1/min-amount/${currencies[index].ticker}_${rightTicker}?api_key=c9155859d90d239f909d2906233816b26cd8cf5ede44702d422667672b58b0cd`, requestOptions)
       .then(response => response.json())
-      .then(result => console.log("left", result))
+      .then(result => {
+        console.log("left", result)
+        SetLeftValue(result.minAmount)
+        SetMin(result.minAmount)
+        SetIsError(false)
+      })
   }
 
   const clickRightItem = (index) => {
