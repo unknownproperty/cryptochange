@@ -158,9 +158,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Home({ currencies }) {
+export default function Home() {
   const classes = useStyles()
   const theme = useTheme();
+
+  const [currencies, SetCurrencies] = React.useState(null)
+  const [render, SetRender] = React.useState(false)
+
+
+  React.useEffect(() => {
+    let requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    fetch(`https://api.changenow.io/v1/currencies?active=true&fixedRate=true`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        SetCurrencies(result)
+        SetRender(true)
+      })
+  }, [])
 
   const [uCryptoAdressValue, SetUCryptoAdressValue] = React.useState("")
 
@@ -284,7 +302,7 @@ export default function Home({ currencies }) {
       </Head>
 
       <main className={classes.root}>
-        <Grid
+        {render && <Grid
           className={classes.rootGrid}
           container
           direction="column"
@@ -497,26 +515,10 @@ export default function Home({ currencies }) {
             </Grid>}
 
           </Grid>
-        </Grid>
+        </Grid>}
       </main>
 
     </div>
   )
 }
 
-export async function getServerSideProps(context) {
-
-  let requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-  };
-
-  const res = await fetch('https://api.changenow.io/v1/currencies?active=true&fixedRate=true', requestOptions)
-  const currencies = await res.json()
-
-  return {
-    props: {
-      currencies,
-    },
-  }
-}
