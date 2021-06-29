@@ -1,12 +1,9 @@
 {
   "name": "cryptoexchange",
-  "version": "0.1.0",
+  "version": 2,
+  "builds": [{ "src": "package.json", "use": "@now/next" }],
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
     "now-build": "next build"
   },
   "dependencies": {
