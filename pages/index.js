@@ -214,14 +214,9 @@ export default function Home({ currencies }) {
       .then(response => response.json())
       .then(result => {
         console.log("right", result)
-        if (result.minAmount != null) {
-          SetLeftValue(result.minAmount)
-          SetMin(result.minAmount)
-          SetIsError(false)
-        } else {
-          SetLeftValue("-")
-          SetIsError(true)
-        }
+        SetLeftValue(result.minAmount)
+        SetMin(result.minAmount)
+        SetIsError(false)
       })
   }
 
@@ -250,6 +245,33 @@ export default function Home({ currencies }) {
         })
     } else {
       SetRightValue("-")
+    }
+  }
+
+  const ChangeRightValue = (v) => {
+    console.log("v", v)
+    SetRightValue(v)
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    console.log("rightValue", rightValue)
+    if (v >= min) {
+      fetch(`https://api.changenow.io/v1/exchange-amount/${v}/btc_eth?api_key=c9155859d90d239f909d2906233816b26cd8cf5ede44702d422667672b58b0cd`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          console.log(result)
+          if (result.estimatedAmount != null) {
+            SetLeftValue(result.estimatedAmount)
+            SetIsError(false)
+          } else {
+            SetLeftValue("-")
+            SetIsError(true)
+          }
+        })
+    } else {
+      SetLeftValue("-")
     }
   }
 
