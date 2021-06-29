@@ -249,7 +249,7 @@ export default function Home() {
 
     console.log("leftValue", leftValue)
     if (v >= min) {
-      fetch(`https://api.changenow.io/v1/exchange-amount/${v}/btc_eth?api_key=c9155859d90d239f909d2906233816b26cd8cf5ede44702d422667672b58b0cd`, requestOptions)
+      fetch(`https://api.changenow.io/v1/exchange-amount/${v}/${leftTicker}_${rightTicker}?api_key=c9155859d90d239f909d2906233816b26cd8cf5ede44702d422667672b58b0cd`, requestOptions)
         .then(response => response.json())
         .then(result => {
           console.log(result)
@@ -266,32 +266,32 @@ export default function Home() {
     }
   }
 
-  const ChangeRightValue = (v) => {
-    console.log("v", v)
-    SetRightValue(v)
-    var requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
+  // const ChangeRightValue = (v) => {
+  //   console.log("v", v)
+  //   SetRightValue(v)
+  //   var requestOptions = {
+  //     method: 'GET',
+  //     redirect: 'follow'
+  //   };
 
-    console.log("rightValue", rightValue)
-    if (v >= min) {
-      fetch(`https://api.changenow.io/v1/exchange-amount/${v}/btc_eth?api_key=c9155859d90d239f909d2906233816b26cd8cf5ede44702d422667672b58b0cd`, requestOptions)
-        .then(response => response.json())
-        .then(result => {
-          console.log(result)
-          if (result.estimatedAmount != null) {
-            SetLeftValue(result.estimatedAmount)
-            SetIsError(false)
-          } else {
-            SetLeftValue("-")
-            SetIsError(true)
-          }
-        })
-    } else {
-      SetLeftValue("-")
-    }
-  }
+  //   console.log("rightValue", rightValue)
+  //   if (v >= min) {
+  //     fetch(`https://api.changenow.io/v1/exchange-amount/${v}/btc_eth?api_key=c9155859d90d239f909d2906233816b26cd8cf5ede44702d422667672b58b0cd`, requestOptions)
+  //       .then(response => response.json())
+  //       .then(result => {
+  //         console.log(result)
+  //         if (result.estimatedAmount != null) {
+  //           SetLeftValue(result.estimatedAmount)
+  //           SetIsError(false)
+  //         } else {
+  //           SetLeftValue("-")
+  //           SetIsError(true)
+  //         }
+  //       })
+  //   } else {
+  //     SetLeftValue("-")
+  //   }
+  // }
 
   return (
     <div>
