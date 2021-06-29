@@ -1,6 +1,6 @@
 {
   "name": "cryptoexchange",
-  "version": 2,
+  "version": "2",
   "builds": [
     {
       "src": "package.json",
