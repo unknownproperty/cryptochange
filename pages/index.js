@@ -56,8 +56,6 @@ const useStyles = makeStyles((theme) => ({
   rootInput: {
     zIndex: 9,
     padding: '2px 4px',
-    // display: 'flex',
-    // alignItems: 'center',
     width: '100%',
     backgroundColor: theme.palette.lightGray,
     border: `2px solid ${theme.palette.brandColor}`,
@@ -65,8 +63,6 @@ const useStyles = makeStyles((theme) => ({
   rootInputSecond: {
     zIndex: 1,
     padding: '2px 4px',
-    // display: 'flex',
-    // alignItems: 'center',
     width: '100%',
     backgroundColor: theme.palette.lightGray,
   },
@@ -76,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%"
   },
   imgWrapper: {
-    //marginTop: 6,
     marginTop: 4,
     padding: 6,
   },
@@ -119,7 +114,6 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 8,
   },
   openSelect: {
-    //position: "absolute",
     display: "block",
     overflowX: "hidden",
     overflowY: "auto",
@@ -165,7 +159,6 @@ export default function Home() {
   const [currencies, SetCurrencies] = React.useState(null)
   const [render, SetRender] = React.useState(false)
 
-
   React.useEffect(() => {
     let requestOptions = {
       method: 'GET',
@@ -196,7 +189,6 @@ export default function Home() {
 
   const [isError, SetIsError] = React.useState(false)
   const [min, SetMin] = React.useState('')
-
 
   const clickLeftItem = (index) => {
     SetIndexLeftSelect(index)
@@ -319,8 +311,6 @@ export default function Home() {
                         value={leftValue}
                         className={classes.input}
                         onChange={(event) => ChangeLeftValue(event.target.value)}
-                        //placeholder="Search Google Maps"
-                        inputProps={{ 'aria-label': 'search google maps' }}
                       />
                       <Divider className={classes.divider} orientation="vertical" />
                       <Grid className={classes.imgWrapper}>
@@ -384,15 +374,11 @@ export default function Home() {
                       alignItems="center"
                     >
                       <InputBase
-                        //type="number"
-                        readOnly={true}
                         value={rightValue}
                         className={classes.input}
                         onChange={(event) => SetRightValue(event.target.value)}
-                        //placeholder="Search Google Maps"
-                        inputProps={{ 'aria-label': 'search google maps' }}
                       />
-                      <Divider className={classes.divider} orientation="vertical" />
+                      <Divider className={classes.divider} orientation="vertical"/>
                       <Grid className={classes.imgWrapper}>
                         <Image alt="icon" width={24} height={24} src={currencies[indexRightSelect].image} />
                       </Grid>
@@ -448,8 +434,6 @@ export default function Home() {
                     className={classes.inputSecond}
                     value={uCryptoAdressValue}
                     onChange={(event) => SetUCryptoAdressValue(event.target.value)}
-                    //placeholder="Search Google Maps"
-                    inputProps={{ 'aria-label': 'search google maps' }}
                   />
                 </Paper>
               </Grid>
