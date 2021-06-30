@@ -155,9 +155,6 @@ function Home({ currencies }) {
   const classes = useStyles()
   const theme = useTheme();
 
-  // const [currencies, SetCurrencies] = React.useState(null)
-  // const [render, SetRender] = React.useState(false)
-
   React.useEffect(() => {
     let requestOptions = {
       method: 'GET',
