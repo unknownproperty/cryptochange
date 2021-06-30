@@ -158,19 +158,22 @@ function Home({ currencies }) {
   // const [currencies, SetCurrencies] = React.useState(null)
   // const [render, SetRender] = React.useState(false)
 
-  // React.useEffect(() => {
-  //   let requestOptions = {
-  //     method: 'GET',
-  //     redirect: 'follow'
-  //   };
+  React.useEffect(() => {
+    let requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
 
-  //   fetch(`https://api.changenow.io/v1/currencies?active=true&fixedRate=true`, requestOptions)
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       SetCurrencies(result)
-  //       SetRender(true)
-  //     })
-  // }, [])
+    fetch(`https://api.changenow.io/v1/min-amount/btc_eth?api_key=c9155859d90d239f909d2906233816b26cd8cf5ede44702d422667672b58b0cd`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log("left", result)
+        SetLeftValue(result.minAmount)
+        SetRightValue("")
+        SetMin(result.minAmount)
+        SetIsError(false)
+      })
+  }, [])
 
   const [uCryptoAdressValue, SetUCryptoAdressValue] = React.useState("")
 
@@ -202,6 +205,7 @@ function Home({ currencies }) {
       .then(result => {
         console.log("left", result)
         SetLeftValue(result.minAmount)
+        SetRightValue("")
         SetMin(result.minAmount)
         SetIsError(false)
       })
