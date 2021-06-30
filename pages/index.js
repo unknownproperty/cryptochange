@@ -5,8 +5,7 @@ import Image from 'next/image'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import CloseIcon from '@material-ui/icons/Close';
 import SyncAltIcon from '@material-ui/icons/SyncAlt';
-import { Popper, Select, MenuItem, Button, Paper, InputBase, Divider, IconButton, Grid, makeStyles, useTheme, TextField, Typography } from '@material-ui/core';
-
+import { Button, Paper, InputBase, Divider, IconButton, Grid, makeStyles, useTheme, TextField, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -152,26 +151,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Home() {
+function Home({ currencies }) {
   const classes = useStyles()
   const theme = useTheme();
 
-  const [currencies, SetCurrencies] = React.useState(null)
-  const [render, SetRender] = React.useState(false)
+  // const [currencies, SetCurrencies] = React.useState(null)
+  // const [render, SetRender] = React.useState(false)
 
-  React.useEffect(() => {
-    let requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
+  // React.useEffect(() => {
+  //   let requestOptions = {
+  //     method: 'GET',
+  //     redirect: 'follow'
+  //   };
 
-    fetch(`https://api.changenow.io/v1/currencies?active=true&fixedRate=true`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        SetCurrencies(result)
-        SetRender(true)
-      })
-  }, [])
+  //   fetch(`https://api.changenow.io/v1/currencies?active=true&fixedRate=true`, requestOptions)
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       SetCurrencies(result)
+  //       SetRender(true)
+  //     })
+  // }, [])
 
   const [uCryptoAdressValue, SetUCryptoAdressValue] = React.useState("")
 
@@ -261,7 +260,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={classes.root}>
-        {render && <Grid
+        <Grid
           className={classes.rootGrid}
           container
           direction="column"
@@ -378,7 +377,7 @@ export default function Home() {
                         className={classes.input}
                         onChange={(event) => SetRightValue(event.target.value)}
                       />
-                      <Divider className={classes.divider} orientation="vertical"/>
+                      <Divider className={classes.divider} orientation="vertical" />
                       <Grid className={classes.imgWrapper}>
                         <Image alt="icon" width={24} height={24} src={currencies[indexRightSelect].image} />
                       </Grid>
@@ -460,9 +459,30 @@ export default function Home() {
               </Typography>
             </Grid>}
           </Grid>
-        </Grid>}
+        </Grid>
       </main>
     </div>
   )
 }
 
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  let requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+
+  const res = await fetch(`https://api.changenow.io/v1/currencies?active=true&fixedRate=true`, requestOptions)
+  const currencies = await res.json()
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      currencies,
+    },
+  }
+}
+
+export default Home
